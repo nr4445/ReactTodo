@@ -1,0 +1,11 @@
+/*
+  we leave off the '_'and also the extension while importiong
+*/
+@import "base/variables";
+
+//foundation
+@import "base/foundation-settings";
+@import "foundation";
+@include foundation-everything;
+
+//components
