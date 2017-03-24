@@ -1,8 +1,11 @@
 var React = require('react');
+var uuid = require('node-uuid');
+
 var TodoList = require('TodoList');
 var AddTodo = require('AddTodo');
 var TodoSearch = require('TodoSearch');
-var uuid = require('node-uuid');
+var TodoAPI = require('TodoAPI');
+
 
 var TodoApp = React.createClass({
   getInitialState: function () {
@@ -11,7 +14,7 @@ var TodoApp = React.createClass({
       searchText: '',
 
       //--efficient way of writing an array as object,
-      //in this case we dont need to loop through the map but can get directly 
+      //in this case we dont need to loop through the map but can get directly
       //todos: {
       //   [uuid()]: {
       //     text: 'Walk the dogg',
@@ -22,29 +25,13 @@ var TodoApp = React.createClass({
       //     completed: false
       //   }
       // }
-      todos: [
-        {
-          id: uuid(),
-          text: 'Walk the dog',
-          completed: false
-        },{
-          id: uuid(),
-          text: 'clean the yard',
-          completed: true
-        },
-        {
-          id: uuid(),
-          text: 'work in garden',
-          completed: true
-        },
-        {
-          id: uuid(),
-          text: 'call to friend',
-          completed: false
-        }
-      ]
+      todos: TodoAPI.getTodos()
     };
   },
+  componentDidUpdate: function () {
+    TodoAPI.setTodos(this.state.todos);
+  },
+
   handleAddTodo: function(text  ) {
     this.setState({
       todos: [
