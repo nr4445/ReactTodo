@@ -9,21 +9,38 @@ var TodoApp = React.createClass({
     return {
       showCompleted: false,
       searchText: '',
+
+      //--efficient way of writing an array as object,
+      //in this case we dont need to loop through the map but can get directly 
+      //todos: {
+      //   [uuid()]: {
+      //     text: 'Walk the dogg',
+      //     completed: false
+      //   },
+      //   [uuid()]: {
+      //     text: 'Clean the yard',
+      //     completed: false
+      //   }
+      // }
       todos: [
         {
           id: uuid(),
-          text: 'Walk the dog'
+          text: 'Walk the dog',
+          completed: false
         },{
           id: uuid(),
-          text: 'clean the yard'
+          text: 'clean the yard',
+          completed: true
         },
         {
           id: uuid(),
-          text: 'work in garden'
+          text: 'work in garden',
+          completed: true
         },
         {
           id: uuid(),
-          text: 'call to friend'
+          text: 'call to friend',
+          completed: false
         }
       ]
     };
@@ -34,10 +51,28 @@ var TodoApp = React.createClass({
         ...this.state.todos,
         {
           id:uuid(),//to generate randon id
-          text:text
+          text:text,
+          completed: false
         }
       ]
     })
+  },
+
+  handleToggle: function (id) {
+    console.log('In handleToggle');
+    var updatedTodos = this.state.todos.map((todo) => {
+      console.log('==> in updateTodos');
+      if(todo.id === id){
+        console.log(todo.text);
+        todo.completed = !todo.completed;
+        return todo;
+      }
+      return todo;
+    });
+    this.setState({
+      todos: updatedTodos
+    });
+    alert(id);
   },
   handleSearch: function (showCompleted, searchText) {
     this.setState({
@@ -51,7 +86,7 @@ var TodoApp = React.createClass({
     return (
       <div>
         <TodoSearch onSearch={this.handleSearch}/>
-        <TodoList todos={todos}/>
+        <TodoList todos={todos} onToggle={this.handleToggle}/>
         <AddTodo onAddTodo={this.handleAddTodo}/>
       </div>
     )
