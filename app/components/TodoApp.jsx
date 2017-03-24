@@ -6,6 +6,8 @@ var TodoSearch = require('TodoSearch');
 var TodoApp = React.createClass({
   getInitialState: function () {
     return {
+      showCompleted: false,
+      searchText: '',
       todos: [
         {
           id: 1,
