@@ -8,7 +8,6 @@ module.exports = {
     }
   },
   getTodos: function () {
-    console.log(localStorage.getItem('todos'));
     var stringTodos = localStorage.getItem('todos');
     var todos = [];
     try {
