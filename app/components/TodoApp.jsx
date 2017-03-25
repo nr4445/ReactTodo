@@ -1,5 +1,6 @@
 var React = require('react');
 var uuid = require('node-uuid');
+var moment = require('moment');
 
 var TodoList = require('TodoList');
 var AddTodo = require('AddTodo');
@@ -39,20 +40,19 @@ var TodoApp = React.createClass({
         {
           id:uuid(),//to generate randon id
           text:text,
-          completed: false
+          completed: false,
+          createdAt: moment().unix(),
+          completedAt: undefined
         }
       ]
     })
   },
 
   handleToggle: function (id) {
-    console.log('In handleToggle');
     var updatedTodos = this.state.todos.map((todo) => {
-      console.log('==> in updateTodos');
       if(todo.id === id){
-        console.log(todo.text);
         todo.completed = !todo.completed;
-        return todo;
+        todo.completedAt = todo.completed ? moment().unix() : undefined;
       }
       return todo;
     });
