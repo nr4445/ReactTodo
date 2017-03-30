@@ -1,0 +1,4 @@
+# node-modules folder will be ignored
+node_modules/
+
+/React\ Notes
